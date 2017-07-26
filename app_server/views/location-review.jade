@@ -1,0 +1,34 @@
+extends layout
+
+block content
+  .container
+    .row
+      .col-sm-8.col-xs-12
+        .row.page-header
+          h1 Add Review : #{data.name}
+          -if (error == 'val')
+            .alert.alert-danger(role="alert") All fields required, please try again
+    .row
+      .col-sm-12.col-xs-12
+        form.form-horizontal(action='', method='post', role='form')
+          .form-group
+            .col-sm-2.col-xs-12
+              .label.control-label(for='name') Name
+            .col-sm-10.col-xs-12
+              input#name.form-control(type='text',name='name')
+          .form-group
+            .col-sm-2.col-xs-12
+              .label.control-label(for='rating') Rating
+            .col-sm-2.col-xs-12
+              select#rating.form-control.input-sm(name='rating')
+                option 5
+                option 4
+                option 3
+                option 2
+                option 1
+          .form-group
+            .col-sm-2.col-xs-12
+              .label.control-label(for='review') Review
+            .col-sm-10.col-xs-12
+              textarea#review.form-control(name='review', rows=5)
+          button.btn-xs.btn-default.pull-right Submit

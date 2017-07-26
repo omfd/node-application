@@ -1,0 +1,62 @@
+extends layout
+include _includes/sharedHTMLfunctions
+
+block content
+  .row.page-header
+    .col-sm-8.col-xs-12
+      h2=name
+      .row
+        .col-sm-8.col-xs-10
+          p.rating
+            +ratingFn(rating)
+      .row
+        .col-sm-8.col-xs-10
+          p.address=address
+      .row
+        .col-sm-8.col-xs-10
+          h4 #{name } Timings
+          .panel.panel-warning
+            each timing in timings
+              .panel-heading.panel-title
+                .row
+                  .col-sm-6.col-xs-12
+                    span.badge #{timing.days}
+                  .col-sm-6.col-xs-12
+                    span.badge.pull-right #{timing.opening} - #{timing.closing}
+      .row
+        .col-sm-8.col-xs-10
+          .panel.panel-danger
+            .panel-heading.panel-title(data-toggle='collapse' data-target='#items')
+              .row
+                .col-sm-4.col-xs-12
+                  span.badge Facilities
+                .col-sm-8.col-xs-12
+                  #items.panel-collapse.collapse.in
+                    each facility in facilities
+                      span.badge.pull-right
+                        | &nbsp;
+                        span.glyphicon.glyphicon-ok=facility
+                        | &nbsp;
+
+      .row
+        .col-sm-10.col-xs-12
+          .panel.panel-primary
+            .panel-heading.panel-title
+              .row
+                .col-sm-8.col-xs-7 Customer Reviews
+                .col-sm-4.col-xs-5
+                  a.btn-xs.btn-default.pull-right(href='/location/#{_id}/review/new') Add Review
+            each review in reviews
+              .panel-body
+                +ratingFn(review.rating)
+                | &nbsp;
+                span.badge #{review.reviewText}
+                span.badge.pull-right #{review.author}
+    .col-sm-4.col-xs-12
+      .panel.panel-success
+        .panel-heading.panel-title
+          span.badge #{name} on the map
+        .panel-body
+          img.img-responsive.img-rounded(src='http://maps.googleapis.com/maps/api/staticmap?center=#{coordinates[1]},#{coordinates[0]}&zoom=17&size=400x350&sensor=false&markers=#{coordinates[1]},#{coordinates[0]}&scale=2&key=AIzaSyD16q-912waNLsDs1dUYx_RuoU4G6P9Gj0')
+
+          //https://maps.googleapis.com/maps/api/staticmap/json?latlng=40.714224,-73.961452&size=600x300&key=AIzaSyD16q-912waNLsDs1dUYx_RuoU4G6P9Gj0

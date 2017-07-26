@@ -1,0 +1,30 @@
+extends layout
+include _includes/sharedHTMLfunctions
+
+block content
+  #banner.page-header
+    .row
+      .col-lg-6
+        h1=title_element.name
+          small &nbsp; #{title_element.desc}
+    .row
+      .col-xs-12.col-sm-8
+        .error=message
+        .row.list-group
+          each location_list in locations_list
+            .col-xs-12.col-sm-12.list-group-item
+              h4
+                a(href='/location/#{location_list._id}')=location_list.name
+                small &nbsp;
+                +ratingFn(location_list.rating)
+                span.badge.pull-right.badge-default=location_list.distance
+              p.address=location_list.address
+              p
+                each item in location_list.items
+                  span.label.label-warning=item
+                  | &nbsp;
+      .col-xs-12.col-sm-4
+        p.lead=side_title
+
+
+//- https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x300&maptype=roadmap&markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318&markers=color:red%7Clabel:C%7C40.718217,-73.998284&key=AIzaSyD16q-912waNLsDs1dUYx_RuoU4G6P9Gj0
